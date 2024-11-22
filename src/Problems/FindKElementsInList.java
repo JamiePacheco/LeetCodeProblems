@@ -1,23 +1,32 @@
 package Problems;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class FindKElementsInList {
-    public static int[] topKFrequent(int[] nums, int k) {
+        public static int[] topKFrequent(int[] nums, int k) {
 
-        ArrayList<Integer> freqList = new ArrayList<Integer>();
+            HashMap<Integer, Integer> counts = new HashMap<>();
 
-        HashMap<Integer, Integer> occur = new HashMap<>();
-
-        for (int i : nums) {
-            if (occur.containsKey(i)) {
-                occur.put(i, occur.get(i) + 1);
-                continue;
+            for (int num : nums) {
+                counts.put(num, (counts.containsKey(num) ? counts.get(num) + 1 : 0));
             }
-            occur.put(i, 0);
-        }
 
-        return freqList.stream().mapToInt(i -> i).toArray();
-    }
+            int[][] instancePairs = new int[counts.keySet().size()][2];
+
+            Integer[] countKeys = new Integer[counts.size()];
+            countKeys = counts.keySet().toArray(countKeys);
+
+            for (int i = 0; i < countKeys.length; i++) {
+                instancePairs[i] = new int[]{countKeys[i], counts.get(countKeys[i])};
+            }
+
+            Arrays.sort(instancePairs, Comparator.comparingInt(instance -> instance[1]));
+            int[] reducedArr = new int[k];
+            for (int i = instancePairs.length-k; i < instancePairs.length; i++) {
+                reducedArr[i-(instancePairs.length-k)] = instancePairs[i][0];
+            }
+
+            return reducedArr;
+        }
 }
