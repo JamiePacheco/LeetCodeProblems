@@ -1,4 +1,4 @@
-package Problems;
+package Problems.ArraysHashing;
 
 import java.util.*;
 import java.util.stream.Collectors;
