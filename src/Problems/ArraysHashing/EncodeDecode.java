@@ -11,6 +11,6 @@ public class EncodeDecode {
     }
 
     public List<String> decode(String str) {
-        return  List.of(str.isBlank() ? str.split("#") : null)
+        return  List.of(str.isBlank() ? str.split("#") : null);
     }
 }
